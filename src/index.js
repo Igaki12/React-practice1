@@ -49,6 +49,7 @@ class Game extends React.Component {
       }],
       stepNumber: 0,
       xIsNext: true,
+      toggleHistory: false,
     };
   }
   handleClick(i) {
@@ -74,10 +75,9 @@ jumpTo(step){
   })
 }
   render() {
-    const history = this.state.history;
+    let history = this.state.toggleHistory ? this.state.history.reverse() : this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-
     const moves = history.map((step,move) =>{
       const desc = move ?
       'Go to move #' + move :
@@ -106,8 +106,8 @@ jumpTo(step){
         <div className="game-info">
           <div>{status}</div>
           <ol>{moves}</ol>
-          <button>昇順</button>
-          <button>降順</button>
+          <button onClick={() => this.setState({toggleHistory: false}) }>昇順</button>
+          <button onClick={() => this.setState({toggleHistory: true})}>降順</button>
         </div>
       </div>
     );
