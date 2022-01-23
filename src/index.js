@@ -75,10 +75,10 @@ jumpTo(step){
   })
 }
   render() {
-    let history = this.state.toggleHistory ? this.state.history.reverse() : this.state.history;
+    const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-    const moves = history.map((step,move) =>{
+    const moves = history.map((step,move) => {
       const desc = move ?
       'Go to move #' + move :
       'Go to game start';
@@ -105,7 +105,7 @@ jumpTo(step){
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <ol>{!this.state.toggleHistory ? moves : moves.reverse() }</ol>
           <button onClick={() => this.setState({toggleHistory: false}) }>昇順</button>
           <button onClick={() => this.setState({toggleHistory: true})}>降順</button>
         </div>
